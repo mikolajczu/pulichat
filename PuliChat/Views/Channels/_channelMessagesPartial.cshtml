@@ -1,0 +1,105 @@
+﻿@using System.Security.Claims
+@using PuliChat.Entities.Models
+@model PuliChat.Entities.Models.Channel
+
+@{
+    var userName = User.Identity.Name;
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    var prevUserName = "";
+    if (Model.Messages.Count != 0)
+    {
+        prevUserName = Model.Messages.OrderBy(x => x.Created).Last().User.UserName;
+    }
+}
+
+<div id="ChannelTitle">
+    <p style="float: left; margin-left: 10px;">
+        #@Model.Name
+    </p>
+</div>
+
+<div id="ChannelContent">
+
+    @if (Model == null || Model.Messages.Count == 0)
+    {
+        
+    }
+    else
+    {
+        var prevItem = Model.Messages.OrderBy(x => x.Created).First().User.Id;
+        foreach (var item in Model.Messages.OrderBy(x => x.Created))
+        {
+            <div class="container_text">
+                @if (item.User.Id != prevItem || item == Model.Messages.OrderBy(x => x.Created).First())
+                {
+                    <p class="userImage">
+                        <img class="profile-picture" src="data:image/png;base64,@Convert.ToBase64String(item.User.Image)" />
+                    </p>
+                    @if (item.User.UsersServers.Where(x => x.ServerId == Model.ServerId).Any() == false)
+                    {
+                        <p class="userSender" 
+                        style="color: darkgrey;">
+                            @item.User.UserName
+                        </p>
+                    }
+                    else if (item.User.UsersServers.Where(x => x.ServerId == Model.ServerId).First().Role == Role.OWNER)
+                    {
+                        <p class="userSender" 
+                        style="color: darkgoldenrod;">
+                            @item.User.UserName
+                        </p>
+                    }
+                    else if (item.User.UsersServers.Where(x => x.ServerId == Model.ServerId).First().Role == Role.ADMIN)
+                    {
+                        <p class="userSender" 
+                        style="color: darkred;">
+                            @item.User.UserName
+                        </p>
+                    }
+                    else if (item.User.UsersServers.Where(x => x.ServerId == Model.ServerId).First().Role == Role.GUEST)
+                    {
+                        <p class="userSender" 
+                        style="color: darkkhaki;">
+                            @item.User.UserName
+                        </p>
+                    }
+                }
+                <p class="userDate">
+                    @item.Created.ToString("dd/MM/yyyy HH:mm")
+                </p>
+
+                <p class="userMess">
+                    @item.Text
+                </p>
+                @{ prevItem = item.User.Id; }
+            </div>
+        }
+    }
+</div>
+<div id="FormMessage">
+    <form method="post" asp-controller="Messages" asp-action="Create"
+          data-ajax-begin="clearInputField" data-ajax-complete=""
+          data-ajax-failure="" data-ajax-success="sendMessage"
+          data-ajax="true" data-ajax-method="POST">
+        <div asp-validation-summary="ModelOnly"></div>
+        <div class="modal-body">
+            <input type="text" id="text" name="text" style="width: 100%;" placeholder="Send a message to @Model.Name" required />
+            <input type="submit" hidden class="btn btn-primary" value="Send" id="submitButton" />
+            <input type="hidden" value="@userId" name="userId" />
+            <input type="hidden" value="@userName" name="username" />
+            <input type="hidden" value="@Model.Id" name="channelId" />
+        </div>
+    </form>
+</div>
+<script src="~/js/chat.js"></script>
+<script>
+    initialize(@Model.Id, "@prevUserName");
+
+    var element = document.getElementById("ChannelContent");
+    element.scrollTop = element.scrollHeight;
+</script>
+
+@section scripts {
+    <script src="~/signalr/signalr.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.unobtrusive-ajax.min.js"></script>
+}

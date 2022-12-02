@@ -1,0 +1,192 @@
+﻿@using PuliChat.Entities.Models
+@using System.Security.Claims
+@model PuliChat.Entities.Models.Server
+@inject IHttpContextAccessor httpContextAccessor
+
+@{
+    ViewData["Title"] = "ServerIndex";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var userName = User.Identity.Name;
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+    int channelId = Model.Channels.Count == 0 ? -1 : Model.Channels.First().Id;
+    if (httpContextAccessor.HttpContext.Request.Cookies["channelCookie" + Model.Id] != null)
+    {
+        channelId = Convert.ToInt32(httpContextAccessor.HttpContext.Request.Cookies["channelCookie" + Model.Id]);
+    }
+    var channel = Model.Channels.FirstOrDefault(x => x.Id == channelId);
+}
+
+<script>
+    function copyInviteLink() {
+        var copyLink = "https://localhost:7007/Servers/Invite/@Model.Id"
+
+        navigator.clipboard.writeText(copyLink);
+
+        var tooltip = document.getElementById("myTooltip");
+        tooltip.style.bottom = "-10%";
+        tooltip.innerHTML = "Now send it to your Friend! ";
+    }
+</script>
+
+<div id="main" class="main mainCool">
+
+    <div id="ServerTitle">
+        <img style="margin-left: 20px; margin-right: 20px"
+            src="@ViewBag.ImageDataUrl" 
+            class="profile-picture"/>
+        <h2 style="margin: 0; float: left;">
+            @Html.DisplayFor(model => model.Name)
+        </h2>
+
+        <div style="float: right; margin-right: 20px;" class="dropdown">
+
+            <button style="width: 160px;" 
+                class="buttonCSS" 
+                id="configureButton" 
+                onmouseover="changeRadiusOfButton(0)" 
+                onmouseout="changeRadiusOfButton(1)">
+                Configure ⚙️
+            </button>
+
+            <div class="dropdown-content" 
+                onmouseover="changeRadiusOfButton(0)" 
+                onmouseout="changeRadiusOfButton(1)">
+
+                <button class="buttonCSS" 
+                    onclick="copyInviteLink()" 
+                    onmouseout="outFunc()">
+                    <span class="tooltiptext" id="myTooltip">
+                        Copy to clipboard
+                    </span>
+                    Invite
+                </button>
+                <button class="buttonCSS">
+                    <a asp-controller="Servers"
+                       asp-action="LeaveServer"
+                       asp-route-id="@Model.Id" style="color: darkred;">
+                        Leave ➜
+                    </a>
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="ServerChannels">
+
+        <div style="float: left; height: 5%; width: 100%; font-weight: bold; padding-left: 10px;">
+            <h4>Channels</h4>
+        </div>
+        <div style="float: left; height: 95%; width: 100%; margin-top: 10px;">
+
+        <table id="channels">
+            @foreach (var item in Model.Channels)
+            {
+                <tr>
+                    <td id="@item.Id">
+                        <a asp-controller="Channels" 
+                            asp-action="ChannelMessagesPartial"
+                            asp-route-id="@item.Id" 
+                            data-ajax="true" 
+                            data-ajax-update="#ChannelMessages"
+                            onclick="channelClicked(@item.Id, @Model.Id)">
+                            @Html.DisplayFor(x => item.Name)
+                        </a>
+                    </td>
+                </tr>
+            }
+        </table>
+
+        </div>
+
+        <div class="userInfo">
+            <hr style="margin-bottom: 10px; padding-left: 10px; width: 80%;" />
+            <div style="float: left; margin-bottom: 5px; width: 100%;">
+                <div style="float: left; width: 20%;">
+                    <img class="profile-picture"
+                         src="data:image/png;base64,@ViewBag.Image" />
+                </div>
+                <div style="float: right; color: white; font-weight: bold; width: 80%;">
+                    @ViewBag.CurrentUserName
+                    <p class="description">
+                        @ViewBag.Description
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div id="ChannelMessages">
+        @if(channelId != -1)
+        {
+            <partial name="../Channels/_channelMessagesPartial" model="@channel" />
+        }
+    </div>
+
+    <div id="UserServerPartial">
+
+    </div>
+
+    <div id="ServerUsers">
+        <div id="ServerUsersPartial" style="float: left; width: 100%; height: 90%">
+            @{
+                var prevRole = Role.GUEST;
+                string color = "";
+            }
+            @foreach(var item in Model.UsersServers.OrderBy(x => x.Role))
+            {
+                if(prevRole != item.Role)
+                {
+                    if (item.Role == Role.OWNER)
+                        color = "darkgoldenrod";
+                    else if (item.Role == Role.ADMIN)
+                        color = "darkred";
+                    else
+                        color = "darkkhaki";
+                    <div style="font-size: 15px; font-weight: bold; float: left; width: 100%; padding-bottom: 5px; margin-top: 5px;">
+                        @item.Role.ToString() - @Model.UsersServers.Where(x => x.Role == item.Role).Count()
+                    </div>
+                }
+                <div style="float: left; margin-bottom: 5px;">
+                    <div style="float: left; width: 20%;">
+                        <a asp-controller="Servers"
+                           asp-action="UserServerPartial"
+                           asp-route-serverId="@Model.Id" 
+                           asp-route-userId="@item.User.Id"
+                           data-ajax="true" 
+                           data-ajax-update="#UserServerPartial"
+                           onclick="userServerPartialClicked(1)"
+                           name="userServerClick">
+                            <img class="profile-picture" 
+                                src="data:image/png;base64,@Convert.ToBase64String(item.User.Image)" />
+                        </a>
+                    </div>
+                    <div style="float: right; color: @color; font-weight: bold; padding-left: 5px; width: 80%;">
+                        @item.User.UserName
+                        <p class="description">
+                            @item.User.Description
+                        </p>
+                    </div>
+                </div>
+                prevRole = item.Role;
+            }
+        </div>
+
+    </div>
+    
+
+</div>
+
+@section scripts {
+    <script src="~/signalr/signalr.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/chat.js"></script>
+    <script src="~/js/signalrReqHandler.js"></script>
+}

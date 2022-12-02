@@ -1,0 +1,87 @@
+body {
+    background-image: url("../puli_blue1.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+#home {
+    text-shadow: 2px 2px #191970;
+}
+
+/* BUTTON */
+.buttonCSS {
+    background: rgba(12, 45, 72, 1);
+}
+
+.button {
+    background: rgba(12, 45, 72, 1);
+    border: 0;
+}
+
+.main-account a:hover {
+    color: rgba(12, 45, 72, 1);
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+    color: #fff;
+    background: rgba(12, 45, 72, 1);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(12, 45, 72, 0.7);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(12, 45, 72, 1);
+}
+
+/* MAIN DIV SERVERINDEX */
+.main {
+    background: linear-gradient(#0C2D48, #2E8BC0);
+}
+
+.main:before{
+    background: linear-gradient( 45deg, #145DA0, #0C2D48, #2E8BC0, #B1D4E0);
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    -webkit-filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing-button-85 30s linear infinite;
+    transition: opacity 0.3s ease-in-out;
+    border-radius: 10px;
+}
+
+.container_text:hover {
+    background: rgba(12, 45, 72, 0.7);
+}
+
+#ServerChannels {
+    background: rgba(12, 45, 72, 0);
+}
+
+#ChannelMessages {
+    background: rgba(12, 45, 72, 0.3);
+}
+
+#ChannelTitle {
+    background: rgba(12, 45, 72, 0.3);
+}
+
+#ServerUsers {
+    background: rgba(12, 45, 72, 0);
+}
+
+.dropdown-content {
+    background: rgba(12, 45, 72, 1);
+}
+
+#UserServerPartial {
+    background: rgba(12, 45, 72, 0.7);
+}

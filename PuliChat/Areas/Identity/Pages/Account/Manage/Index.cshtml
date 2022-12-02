@@ -1,0 +1,45 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["ActivePage"] = ManageNavPages.Index;
+}
+
+<partial name="_StatusMessage" for="StatusMessage" />
+<div class="row">
+    <div class="profile-settings">
+        <form id="profile-form" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div style="margin-left: 100px;">
+            <img src="@ViewData["ImageUrl"]" style="height: 200px; width: 200px; object-fit: cover; border-radius: 100%" />
+            </div>
+            <div>
+                <h6 style="font-weight: bold; margin-bottom: 4px;">Profile picture</h6>
+                <input asp-for="Input.Image" class="form-control input" multiple="multiple" />
+                <label asp-for="Input.Image" class="form-label" hidden></label>
+                <span asp-validation-for="Input.Image" class="text-danger"></span>
+            </div>
+            <div>
+                <h6 style="font-weight: bold; margin-bottom: 4px;">Username</h6>
+                <input asp-for="Username" class="input" disabled />
+                <label asp-for="Username" class="form-label" hidden></label>
+            </div>
+            <div>
+                <h6 style="font-weight: bold; margin-bottom: 4px;">Phone number</h6>
+                <input asp-for="Input.PhoneNumber" class="input" />
+                <label asp-for="Input.PhoneNumber" class="form-label" hidden></label>
+                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+            </div>
+            <div>
+                <h6 style="font-weight: bold; margin-bottom: 4px;">Description</h6>
+                <input asp-for="Input.Description" class="input" />
+                <label asp-for="Input.Description" class="form-label" hidden></label>
+                <span asp-validation-for="Input.Description" class="text-danger"></span>
+            </div>
+            <button id="update-profile-button" type="submit" class="input button">Save</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

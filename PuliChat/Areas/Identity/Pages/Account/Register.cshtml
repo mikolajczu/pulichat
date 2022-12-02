@@ -1,0 +1,57 @@
+﻿@page
+@model RegisterModel
+
+<div class="main main-login">
+    <section>
+        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post" enctype="multipart/form-data">
+            <div style="text-align: center; margin-top: 5%;">
+                <h2 style="color: white;">Hi!</h2>
+                <h3>We're glad you're here!</h3>
+            </div>
+            <hr/>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div>
+                <h6 style="font-weight: bold; margin-bottom: 4px;">Profile picture</h6>
+                <input asp-for="Input.Image" class="form-control input" aria-required="true" multiple="multiple" />
+                <label asp-for="Input.Image" hidden></label>
+                <span asp-validation-for="Input.Image" class="text-danger"></span>
+            </div>
+            <div>
+                <h6 style="font-weight: bold; margin-bottom: 4px;">Username *</h6>
+                <input asp-for="Input.UserName" class="input" autocomplete="username" aria-required="true" />
+                <label asp-for="Input.UserName" hidden></label>
+                <span asp-validation-for="Input.UserName" class="text-danger"></span>
+            </div>
+            <div>
+                <h6 style="font-weight: bold; margin-bottom: 4px;">Email *</h6>
+                <input asp-for="Input.Email" class="input" aria-required="true" />
+                <label asp-for="Input.Email" hidden></label>
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+            <div>
+                <h6 style="font-weight: bold; margin-bottom: 4px;">Password *</h6>
+                <input asp-for="Input.Password" class="input" autocomplete="new-password" aria-required="true" />
+                <label asp-for="Input.Password" hidden></label>
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+            <div>
+                <h6 style="font-weight: bold; margin-bottom: 4px;">Confirm password *</h6>
+                <input asp-for="Input.ConfirmPassword" class="input" autocomplete="new-password" aria-required="true" />
+                <label asp-for="Input.ConfirmPassword" hidden></label>
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            </div>
+            <div hidden>
+                <h6 style="font-weight: bold; margin-bottom: 4px;">Description</h6>
+                <input asp-for="Input.Description" class="input" aria-required="true" />
+                <label asp-for="Input.Description" hidden></label>
+                <span asp-validation-for="Input.Description" class="text-danger"></span>
+            </div>
+            <button id="registerSubmit" type="submit" class="input button">Register</button>
+        </form>
+        <hr />
+    </section>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

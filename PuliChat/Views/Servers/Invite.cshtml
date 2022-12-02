@@ -1,0 +1,22 @@
+﻿@model PuliChat.Entities.Models.Server
+
+@{
+    ViewData["Title"] = "Invite";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="main main-login">
+    <section>
+        <div style="text-align: center; margin-top: 5%;">
+            <h2 style="color: white;">Invite!</h2>
+            <h3>Accept invite by submit button.</h3>
+        </div>
+        <hr />
+        <h4 style="font-weight: bold;">@Html.DisplayFor(model => model.Name)</h4>
+        <h5>Liczba użytkowników: @Html.DisplayFor(model => model.Users.Count)</h5>
+        <form asp-action="Invite">
+            <input type="hidden" asp-for="Id" />
+            <input type="submit" value="Confirm" class="input button" /> 
+        </form>
+    </section>
+</div>

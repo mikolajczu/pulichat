@@ -1,0 +1,338 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html, body {
+    height: 100%;
+    font-family: "Montserrat", sans-serif;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+    background-color: #252525;
+    color: lightgray;
+    font-size: 14px;
+}
+
+header, footer {
+    color: #05386B;
+}
+
+a, a:hover, a:link {
+    text-decoration: none;
+    color: #EDF5E1;
+}
+
+/* LAYOUT SERVER PICTURE */
+.layout-server-picture {
+    margin-top: 0;
+    height: 50px;
+    width: 50px;
+    border-radius: 25px 25px;
+    object-fit: cover;
+}
+
+.layout-server-picture:hover {
+    animation: server-picture-hover 1s normal infinite;
+}
+
+@keyframes server-picture-hover {
+    0% {
+        border-radius: 25px 25px;
+    }
+
+    100% {
+        border-radius: 10px 10px;
+    }
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* BUTTON */
+.buttonCSS {
+    padding: 0.6em 2em;
+    border: none;
+    outline: none;
+    color: rgb(255, 255, 255);
+    background: #222;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    font-weight: bold;
+}
+
+/* MAIN DIV SERVERINDEX */
+.main {
+    position: absolute;
+    bottom: 60px;
+    top: 70px;
+    left: 10px;
+    right: 10px;
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    background: #111;
+    border-radius: 10px;
+}
+
+.main:before{
+    content: "";
+    background: linear-gradient( 45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000 );
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    -webkit-filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing-button-85 20s linear infinite;
+    transition: opacity 0.3s ease-in-out;
+    border-radius: 10px;
+}
+
+@keyframes glowing-button-85 {
+    0% {
+        background-position: 0 0;
+    }
+
+    50% {
+        background-position: 400% 0;
+    }
+
+    100% {
+        background-position: 0 0;
+    }
+}
+
+/* CHAT ELEMENTS */
+.container_text {
+    float: left;
+    width: 100%;
+}
+
+.userImage {
+    margin: 5px;
+    width: 4%;
+    height: 100%;
+    float: left;
+    margin-top: 14px;
+}
+
+.userSender {
+    font-size: 15px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    margin-left: 5px;
+    width: 94%;
+    height: 30%;
+    float: right;
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+
+.userMess {
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 5px;
+    width: 94%;
+    height: 70%;
+    float: right;
+}
+
+/* MAIN SERVERINDEX ELEMENTS */
+#ServerTitle {
+    color: white;
+    float: left;
+    width: 100%;
+    padding-left: 10px;
+    height: 8%;
+    padding-top: 5px;
+    font-weight: bold;
+}
+
+#ServerChannels {
+    font-size: 16px;
+    float: left;
+    width: 8%;
+    margin-left: 1%;
+    background-color: #2F3136;
+    height: 90%;
+    border-top-left-radius: 10px 10px;
+    border-bottom-left-radius: 10px 10px;
+}
+
+#channels {
+    width: 100%;
+    padding-top: 20px;
+}
+
+#channels td {
+    padding-left: 20px;
+}
+
+#ChannelMessages {
+    float: left;
+    width: 75%;
+    height: 90%;
+    position: relative;
+    background-color: #36393F;
+}
+
+#ChannelTitle {
+    float: left;
+    height: 5%;
+    width: 100%;
+    background-color: #2F3136;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#ChannelContent {
+    float: left;
+    width: 100%;
+    height: 85%;
+    position: relative;
+    overflow-y: hidden;
+    overflow-wrap: break-word;
+}
+
+#ChannelContent:hover {
+    overflow-y: auto;
+}
+
+#FormMessage {
+    float: left;
+    width: 100%;
+    height: 10%;
+}
+
+#ServerUsers {
+    float: left;
+    width: 15%;
+    height: 90%;
+    padding-left: 20px;
+    padding-top: 10px;
+    background-color: #2F3136;
+    border-top-right-radius: 10px 10px;
+    border-bottom-right-radius: 10px 10px;
+}
+
+#ServerUsersPartial {
+    overflow-y: hidden;
+    overflow-wrap: break-word;
+}
+
+#ServerUsersPartial:hover {
+    overflow-y: auto;
+}
+
+#text {
+    border-radius: 10px 10px;
+    border: 2px solid darkgray;
+    background-color: darkgray;
+}
+
+.profile-picture {
+    height: 40px;
+    width: 40px;
+    float: left;
+    border-radius: 20px 20px;
+    object-fit: cover;
+}
+
+.description {
+    margin: 0;
+    padding: 0;
+    font-size: 10px;
+    color: lightgray;
+    font-weight: normal;
+}
+
+/* COPY LINK TIP TEXT */
+.tooltiptext {
+  visibility: hidden;
+  width: 140px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 10%;
+  right: 110%;
+  margin-left: -75px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent transparent #555; 
+}
+
+.buttonCSS:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* DROPDOWN CONTENT */
+.dropdown-content .buttonCSS, .dropdown-content .buttonCSS:after{
+    border-radius: 0;
+    width: 100%;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  font-size: 13px;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}

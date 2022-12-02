@@ -1,0 +1,28 @@
+﻿@model PuliChat.Entities.Models.ApplicationUser
+
+@{
+    var userServer = Model.UsersServers.FirstOrDefault(x => x.UserId == Model.Id);
+}
+
+<div style="float: left; width: 100%;">
+    <h2>@userServer.Role.ToString()</h2>
+</div>
+<div style="float: left; width: 30%;">
+    <img class="profile-picture" src="data:image/png;base64,@Convert.ToBase64String(Model.Image)" />
+</div>
+<div style="float: left; width: 70%; padding-top: 10px; font-size: 17px;">
+    @Model.UserName
+</div>
+<div style="float: left; width: 100%; margin-top: 5px;">
+    Joined: @userServer.UserJoined.ToString("MM/dd/yyyy")
+</div>
+<div style="float: left; width: 100%; margin-top: 5px;">
+    @Model.Description
+</div>
+
+@section scripts {
+    <script src="~/signalr/signalr.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/js/chat.js"></script>
+    <script src="~/js/signalrReqHandler.js"></script>
+}

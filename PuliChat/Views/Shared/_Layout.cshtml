@@ -1,0 +1,101 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using PuliChat.Entities.Models
+@inject UserManager<ApplicationUser> UserManager
+@inject IHttpContextAccessor httpContextAccessor
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - PuliChat</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/PuliChat.styles.css" asp-append-version="true" />
+    @{
+        var theme = "Purple";
+        if (httpContextAccessor.HttpContext.Request.Cookies["theme"] != null)
+        {
+            theme = httpContextAccessor.HttpContext.Request.Cookies["theme"].ToString();
+        }
+
+        if (theme == "Purple")
+        {
+            <link rel="stylesheet" href="~/css/purple.css" asp-append-version="true" />
+        }
+        else if (theme == "Green")
+        {
+            <link rel="stylesheet" href="~/css/green.css" asp-append-version="true" />
+        }
+        else
+        {
+            <link rel="stylesheet" href="~/css/blue.css" asp-append-version="true" />
+        }
+    }
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light">
+            <div class="container-fluid" style="color: white;">
+                <a class="navbar-brand" style="color: white;" asp-area="" asp-controller="Home" asp-action="Index">PuliChat</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between" style="float: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                    <ul class="navbar-nav flex-grow-1 mx-auto">
+                        @if(User.Identity.IsAuthenticated){
+                            var user = await UserManager.GetUserAsync(User);
+                            foreach(var item in user.Servers)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" 
+                                        style="color: white;" 
+                                        asp-area="" 
+                                        asp-controller="Servers" 
+                                        asp-action="ServerIndex" 
+                                        asp-route-id="@item.Id">
+                                        <img class="layout-server-picture" 
+                                            src="data:image/png;base64,@Convert.ToBase64String(item.ImageData)" />
+                                        <span class="tooltiptext" id="myTooltip">
+                                            @item.Name
+                                        </span>
+                                    </a>
+                                </li>
+                            }
+                            <li>
+                                <a class="nav-link"
+                                    style="color: white; width: 30px; height: 30px; margin-top: -28px; font-size: 72px; font-weight: bold"
+                                    asp-area="" 
+                                    asp-controller="Servers" 
+                                    asp-action="Create">
+                                    +
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+                <partial name="_LoginPartial" />
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="footer text-muted">
+        <div class="container">
+            &copy; 2022 - PuliChat - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
