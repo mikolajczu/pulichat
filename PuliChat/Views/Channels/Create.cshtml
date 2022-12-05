@@ -5,31 +5,28 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
-
-<h4>Channel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="main main-login" style="width: 300px; height: 250px; margin: auto;">
+    <section>
+        <div style="text-align: center; margin-top: 5%;">
+            <h2 style="color: white;">Create channel!</h2>
+        </div>
+        <hr />
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
+                <h5 style="font-weight: bold;">Channel name</h5>
+                <label asp-for="Name" class="control-label" hidden></label>
+                <input asp-for="Name" class="input" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input hidden asp-for="ServerId" class ="form-control" asp-items="ViewBag.ServerId" />
+                <input hidden asp-for="ServerId" class="form-control" asp-items="ViewBag.ServerId" />
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="input button" />
             </div>
         </form>
-    </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
+    </section>
 </div>
 
 @section Scripts {

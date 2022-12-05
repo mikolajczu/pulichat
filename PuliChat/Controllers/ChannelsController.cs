@@ -24,6 +24,14 @@ namespace PuliChat.Controllers
             _userManager = userManager;
         }
 
+        public async Task<IActionResult> Index()
+        {
+            var channels = await _channelRepository.GetAllAsync();
+            if (channels == null) return NotFound();
+
+            return View(channels);
+        }
+
         // GET: Channels/Create
         public IActionResult Create(int ServerId)
         {

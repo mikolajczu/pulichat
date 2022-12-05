@@ -66,6 +66,15 @@ body {
     background: rgba(12, 45, 72, 0);
 }
 
+#channels td:hover {
+    background: rgba(12, 45, 72, 1);
+}
+
+#ServerUser:hover {
+    background: rgba(12, 45, 72, 1);
+    border-radius: 10px 10px;
+}
+
 #ChannelMessages {
     background: rgba(12, 45, 72, 0.3);
 }

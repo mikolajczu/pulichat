@@ -103,7 +103,8 @@
 
         </div>
 
-        <div class="userInfo">
+        <a href="/Identity/Account/Manage">
+        <div id="userInfoID"class="userInfo">
             <hr style="margin-bottom: 10px; padding-left: 10px; width: 80%;" />
             <div style="float: left; margin-bottom: 5px; width: 100%;">
                 <div style="float: left; width: 20%;">
@@ -118,6 +119,7 @@
                 </div>
             </div>
         </div>
+        </a>
 
     </div>
 
@@ -153,9 +155,7 @@
                         @item.Role.ToString() - @Model.UsersServers.Where(x => x.Role == item.Role).Count()
                     </div>
                 }
-                <div style="float: left; margin-bottom: 5px;">
-                    <div style="float: left; width: 20%;">
-                        <a asp-controller="Servers"
+                <a asp-controller="Servers"
                            asp-action="UserServerPartial"
                            asp-route-serverId="@Model.Id" 
                            asp-route-userId="@item.User.Id"
@@ -163,9 +163,11 @@
                            data-ajax-update="#UserServerPartial"
                            onclick="userServerPartialClicked(1)"
                            name="userServerClick">
+                <div id="ServerUser" style="float: left; margin-bottom: 5px;">
+                    <div style="float: left; width: 20%;">
+                        
                             <img class="profile-picture" 
                                 src="data:image/png;base64,@Convert.ToBase64String(item.User.Image)" />
-                        </a>
                     </div>
                     <div style="float: right; color: @color; font-weight: bold; padding-left: 5px; width: 80%;">
                         @item.User.UserName
@@ -174,6 +176,7 @@
                         </p>
                     </div>
                 </div>
+                </a>
                 prevRole = item.Role;
             }
         </div>
