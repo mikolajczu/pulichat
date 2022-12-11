@@ -1,71 +1,73 @@
 ﻿/* SIGNALR REAL-TIME CHAT */
 
-class Message {
-    constructor(username, text) {
-        this.userName = username;
-        this.text = text;
-    }
-}
-
-// userName is declared in razor page.
-const username = userName;
-const userrole = userRole;
-const userimage = userImage;
+let prevUser;
 let textInput;
 let chat;
-let channel1l;
-const messagesQueue = [];
+let channel1;
 
-function initialize(channel) {
+function initialize(channel, prevUserT) {
     channel1 = channel;
     textInput = document.getElementById('text');
     chat = document.getElementById('ChannelContent');
+    prevUser = prevUserT;
 }
 
 function clearInputField() {
-    messagesQueue.push(textInput.value);
     textInput.value = "";
 }
 
-function sendMessage() {
-    let text = messagesQueue.shift() || "";
-    if (text.trim() === "") return;
-
-    let message = new Message(username, text);
-    sendMessageToHub(message, channel1, userrole, String(userimage));
+function sendMessage(message) {
+    if (message.length != 0) {
+        sendMessageToHub(message);
+    }
 }
 
-function addMessageToChat(message, channelId, userRole, userImage) {
-    if (channelId != channel1) return;
+function addMessageToChat(message) {
+    if (message[5] != channel1) return;
+
+    let userName = message[0];
+    let messageDate = message[1];
+    let messageText = message[2];
+    let userImage = message[3];
+    let userRole = message[4];
 
     let container = document.createElement('div');
     container.className = "container_text";
 
-    let senderImage = document.createElement('p');
-    senderImage.className = "userImage";
+    if (prevUser != userName) {
+        let senderImage = document.createElement('p');
+        senderImage.className = "userImage";
 
-    let image = document.createElement('img');
-    image.className = "profile-picture";
-    image.src = "data:image/png;base64," + String(userImage);
+        let image = document.createElement('img');
+        image.className = "profile-picture";
+        image.src = "data:image/png;base64," + userImage;
 
-    senderImage.appendChild(image);
+        senderImage.appendChild(image);
 
-    let sender = document.createElement('p');
-    if (userRole == "OWNER")
-        sender.style.color = "darkgoldenrod";
-    else if (userRole == "ADMIN")
-        sender.style.color = "darkred";
-    else if (userRole == "GUEST")
-        sender.style.color = "darkkhaki";
-    sender.className = "userSender";
-    sender.innerHTML = message.userName;
+        let sender = document.createElement('p');
+        if (userRole == "OWNER")
+            sender.style.color = "darkgoldenrod";
+        else if (userRole == "ADMIN")
+            sender.style.color = "darkred";
+        else if (userRole == "GUEST")
+            sender.style.color = "darkkhaki";
+        sender.className = "userSender";
+        sender.innerHTML = userName;
+
+        container.appendChild(senderImage);
+        container.appendChild(sender);
+    }
 
     let text = document.createElement('p');
     text.className = "userMess";
-    text.innerHTML = message.text;
+    text.innerHTML = messageText;
 
-    container.appendChild(senderImage);
-    container.appendChild(sender);
+    let date = document.createElement('p');
+    date.className = "userDate";
+    date.innerHTML = messageDate;
+
+    prevUser = userName;
+    container.appendChild(date);
     container.appendChild(text);
     chat.appendChild(container);
     updateScroll();

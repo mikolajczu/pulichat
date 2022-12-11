@@ -16,7 +16,7 @@
     <WebStackScaffolding_ViewDialogWidth>800</WebStackScaffolding_ViewDialogWidth>
     <_SelectedScaffolderID>IdentityScaffolder</_SelectedScaffolderID>
     <_SelectedScaffolderCategoryPath>root/Identity</_SelectedScaffolderCategoryPath>
-    <NameOfLastUsedPublishProfile>C:\Users\Majkelo\Desktop\work\csharp\PuliChat\PuliChat\Properties\PublishProfiles\FolderProfile.pubxml</NameOfLastUsedPublishProfile>
+    <NameOfLastUsedPublishProfile>C:\Users\Majkelo\Desktop\PublicProjects\PuliChat\PuliChat\Properties\PublishProfiles\PuliChat - Web Deploy.pubxml</NameOfLastUsedPublishProfile>
     <ActiveDebugProfile>PuliChat</ActiveDebugProfile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

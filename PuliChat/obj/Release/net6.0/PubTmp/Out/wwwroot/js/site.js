@@ -1,12 +1,36 @@
-﻿/* SERVERINDEX SCRIPTS */
+﻿let isClicked1 = 0;
 
-$(document).ready(function () {
-    var table = document.getElementById("channels");
-    var trs = table.getElementsByTagName("tr")[0];
-    var cellVal = trs.cells[0];
-    var cellA = cellVal.getElementsByTagName("a")[0];
-    cellA.click();
+$(document).click(function () {
+    if (isClicked1 == 0) {
+        var element = document.getElementById("UserServerPartial");
+        element.style.display = "none";
+    }
+    isClicked1 = 0;
 });
+
+$("#ServerUsersPartial a").click(function () {
+    isClicked1 = 1;
+});
+
+/* LAYOUT THEME SCRIPT */
+const home = document.getElementById("home");
+const buttons = home.getElementsByTagName("button");
+
+for (let button of buttons) {
+    button.addEventListener("click", function () {
+        var item = button.value;
+
+        $.post("Home/SetTheme", {
+            data: item
+        });
+
+        setTimeout(function () {
+            location.reload();
+        }, 300);
+    });
+}
+
+/* SERVERINDEX SCRIPTS */
 
 function outFunc() {
     var tooltip = document.getElementById("myTooltip");
@@ -14,17 +38,30 @@ function outFunc() {
     tooltip.innerHTML = "Copy to clipboard";
 }
 
-function channelClicked(id) {
-    var element = document.getElementById(id);
-    var table = document.getElementById("channels");
+function channelClicked(id, serverId) {
+    //var element = document.getElementById(id);
+    //var table = document.getElementById("channels");
 
-    table.style.backgroundColor = "#2F3136";
-    for (var i = 0; i < table.rows.length; i++) {
-        var trs = table.getElementsByTagName("tr")[i];
-        var cellVal = trs.cells[0];
-        cellVal.style.backgroundColor = "#2F3136";
+    //table.style.background = "rgba(48, 25, 52, 0)";
+    //for (var i = 0; i < table.rows.length; i++) {
+    //    var trs = table.getElementsByTagName("tr")[i];
+    //    var cellVal = trs.cells[0];
+    //    //cellVal.style.background = "rgba(48, 25, 52, 0)";
+    //}
+    ////element.style.backgroundColor = "rgba(48, 25, 52, 0.3)";
+
+    var data1 = id + " " + serverId;
+    $.post("../../Servers/SetChannel", {
+        data: data1
+    });
+}
+
+function userServerPartialClicked(isClicked) {
+    var element = document.getElementById("UserServerPartial");
+    element.style.display = "none";
+    if (isClicked == 1) {
+        element.style.display = "block";
     }
-    element.style.backgroundColor = "#36393F";
 }
 
 function changeRadiusOfButton(or) {

@@ -19,13 +19,13 @@ namespace PuliChat.Controllers
 {
     public class MessagesController : Controller
     {
-        private readonly ApplicationDbContext _context;
         private readonly IMessageRepository _messageRepository;
+        private readonly ApplicationDbContext _context;
 
-        public MessagesController(ApplicationDbContext context, IMessageRepository messageRepository)
+        public MessagesController(IMessageRepository messageRepository, ApplicationDbContext context)
         {
-            _context = context;
             _messageRepository = messageRepository;
+            _context = context;
         }
 
 
@@ -52,61 +52,6 @@ namespace PuliChat.Controllers
                 return Json(message1);
             }
             return Problem();
-        }
-
-        // GET: Messages/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null || _context.Messages == null)
-            {
-                return NotFound();
-            }
-
-            var message = await _context.Messages.FindAsync(id);
-            if (message == null)
-            {
-                return NotFound();
-            }
-            ViewData["ChannelId"] = new SelectList(_context.Channels, "Id", "Name", message.ChannelId);
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", message.UserId);
-            return View(message);
-        }
-
-        // POST: Messages/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Text,ChannelId,UserId,Created")] Message message)
-        {
-            if (id != message.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(message);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!MessageExists(message.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["ChannelId"] = new SelectList(_context.Channels, "Id", "Name", message.ChannelId);
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", message.UserId);
-            return View(message);
         }
 
         // GET: Messages/Delete/5
@@ -146,11 +91,6 @@ namespace PuliChat.Controllers
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool MessageExists(int id)
-        {
-          return _context.Messages.Any(e => e.Id == id);
         }
     }
 }

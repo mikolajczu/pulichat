@@ -12,10 +12,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using PuliChat.DataAccessLayer.Repositories.Abstract;
 using PuliChat.Entities;
 using PuliChat.Entities.Models;
+using PuliChat.Hubs;
 using SkiaSharp;
 
 namespace PuliChat.Controllers
@@ -26,12 +28,17 @@ namespace PuliChat.Controllers
         private readonly IServerRepository _serverRepository;
         private readonly IMessageRepository _messageRepository;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IHubContext<ChatHub> _chat;
 
-        public ServersController(IServerRepository serverRepository, IMessageRepository messageRepository, UserManager<ApplicationUser> userManager)
+        public ServersController(IServerRepository serverRepository, 
+            IMessageRepository messageRepository, 
+            UserManager<ApplicationUser> userManager,
+            IHubContext<ChatHub> chat)
         {
             _serverRepository = serverRepository;
             _userManager = userManager;
             _messageRepository = messageRepository;
+            _chat = chat;
         }
 
         // GET: Servers
@@ -192,7 +199,7 @@ namespace PuliChat.Controllers
             try
             {
                 var userServer = currentUser.UsersServers.Where(x => x.ServerId == server.Id).First();
-
+                
                 if (userServer.Role == Role.OWNER || userServer.Role == Role.ADMIN)
                     return View("ServerIndexAdmin", server);
                 else
