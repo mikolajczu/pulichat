@@ -9,6 +9,7 @@
 
     var userName = User.Identity.Name;
     var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    string prevServer = "";
 
     int channelId = Model.Channels.Count == 0 ? -1 : Model.Channels.First().Id;
     if (httpContextAccessor.HttpContext.Request.Cookies["channelCookie" + Model.Id] != null)
@@ -16,17 +17,29 @@
         channelId = Convert.ToInt32(httpContextAccessor.HttpContext.Request.Cookies["channelCookie" + Model.Id]);
     }
     var channel = Model.Channels.FirstOrDefault(x => x.Id == channelId);
+    if (channel == null)
+    {
+        channelId = -1;
+    }
+
+    if (httpContextAccessor.HttpContext.Request.Cookies["serverGroup"] != null)
+    {
+        prevServer = Convert.ToString(httpContextAccessor.HttpContext.Request.Cookies["serverGroup"]);
+    }
 }
 
+<script src="~/js/site.js"></script>
 <script>
+    serverName = "@Model.Name";
     function copyInviteLink() {
         var copyLink = "https://localhost:7007/Servers/Invite/@Model.Id"
 
         navigator.clipboard.writeText(copyLink);
 
-        var tooltip = document.getElementById("myTooltip");
-        tooltip.style.bottom = "-10%";
-        tooltip.innerHTML = "Now send it to your Friend! ";
+        //var tooltip = document.getElementById("myTooltip");
+        //tooltip.style.bottom = "-10%";
+        //tooltip.innerHTML = "Now send it to your Friend! ";
+        //tooltip.innerText = "fsfs";
     }
 </script>
 

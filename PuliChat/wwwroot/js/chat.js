@@ -23,6 +23,7 @@ function sendMessage(message) {
 }
 
 function addMessageToChat(message) {
+    console.log("Received message");
     if (message[5] != channel1) return;
 
     let userName = message[0];

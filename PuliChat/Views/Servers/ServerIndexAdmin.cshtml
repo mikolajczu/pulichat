@@ -22,7 +22,9 @@
     }
 }
 
+<script src="~/js/site.js"></script>
 <script>
+    serverName = "@Model.Name";
     function copyInviteLink() {
         var copyLink = "https://localhost:7007/Servers/Invite/@Model.Id"
 
@@ -31,7 +33,6 @@
         var tooltip = document.getElementById("myTooltip");
         tooltip.style.bottom = "-10%";
         tooltip.innerHTML = "Now send it to your Friend! ";
-        tooltip.innerText = "fsfs";
     }
 </script>
 

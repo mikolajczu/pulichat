@@ -1,4 +1,5 @@
-﻿let isClicked1 = 0;
+﻿let serverName = "";
+let isClicked1 = 0;
 
 $(document).click(function () {
     if (isClicked1 == 0) {
@@ -39,17 +40,6 @@ function outFunc() {
 }
 
 function channelClicked(id, serverId) {
-    //var element = document.getElementById(id);
-    //var table = document.getElementById("channels");
-
-    //table.style.background = "rgba(48, 25, 52, 0)";
-    //for (var i = 0; i < table.rows.length; i++) {
-    //    var trs = table.getElementsByTagName("tr")[i];
-    //    var cellVal = trs.cells[0];
-    //    //cellVal.style.background = "rgba(48, 25, 52, 0)";
-    //}
-    ////element.style.backgroundColor = "rgba(48, 25, 52, 0.3)";
-
     var data1 = id + " " + serverId;
     $.post("../../Servers/SetChannel", {
         data: data1
