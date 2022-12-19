@@ -122,6 +122,7 @@ a, a:hover, a:link {
     border: none;
     outline: none;
     border-radius: 10px;
+    min-width: 500px;
 }
 
 @keyframes glowing-button-85 {
@@ -140,8 +141,7 @@ a, a:hover, a:link {
 
 /* MAIN LOGIN */
 .main-login {
-    margin-left: 30%;
-    margin-right: 30%;
+    margin: 0 30%;
     color: darkgray;
     text-align: center;
 }
@@ -260,6 +260,7 @@ a, a:hover, a:link {
     height: 75%;
     border-top-left-radius: 10px 10px;
     border-bottom-left-radius: 10px 10px;
+    min-width: 200px;
 }
 
 .userInfo {
@@ -300,7 +301,7 @@ a, a:hover, a:link {
 
 #ChannelContent {
     float: left;
-    width: 100%;
+    width: auto;
     height: 85%;
     position: relative;
     overflow-y: auto;
@@ -314,13 +315,15 @@ a, a:hover, a:link {
 }
 
 #ServerUsers {
-    float: left;
+    float: right;
     width: 15%;
+    position: relative;
     height: 90%;
     padding-left: 20px;
     padding-top: 10px;
     border-top-right-radius: 10px 10px;
     border-bottom-right-radius: 10px 10px;
+    min-width: 200px;
 }
 
 #ServerUsersPartial {

@@ -28,17 +28,14 @@ namespace PuliChat.Controllers
         private readonly IServerRepository _serverRepository;
         private readonly IMessageRepository _messageRepository;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly IHubContext<ChatHub> _chat;
 
         public ServersController(IServerRepository serverRepository, 
             IMessageRepository messageRepository, 
-            UserManager<ApplicationUser> userManager,
-            IHubContext<ChatHub> chat)
+            UserManager<ApplicationUser> userManager)
         {
             _serverRepository = serverRepository;
             _userManager = userManager;
             _messageRepository = messageRepository;
-            _chat = chat;
         }
 
         // GET: Servers

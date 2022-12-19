@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "wB2Ye+PT+KAxLnjWuS03twSnMXV6SZAsyK6kqHpATVI=",
+  "Hash": "UnYIQR6OiDVZtueWL8PtXUSvYo3Hmo8I5hlKqXFZq6w=",
   "Source": "PuliChat",
   "BasePath": "_content/PuliChat",
   "Mode": "Default",
@@ -1290,6 +1290,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\site.min.js"
+    },
+    {
+      "Identity": "C:\\Users\\Majkelo\\Desktop\\PublicProjects\\PuliChat\\PuliChat\\wwwroot\\js\\sitejquery.js",
+      "SourceId": "PuliChat",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Majkelo\\Desktop\\PublicProjects\\PuliChat\\PuliChat\\wwwroot\\",
+      "BasePath": "_content/PuliChat",
+      "RelativePath": "js/sitejquery.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\sitejquery.js"
     },
     {
       "Identity": "C:\\Users\\Majkelo\\Desktop\\PublicProjects\\PuliChat\\PuliChat\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
